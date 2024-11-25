@@ -13,6 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.gravitee.secrets.api;
+package io.gravitee.secrets.api.el;
 
-public interface Noop {}
+/**
+ * Qualifies the secret value kind.<br/>
+ * From the plugin perspective it is the nature of the secret.<br/>
+ * From the secret specification perspective
+ * it indicates that a secret can be used if the kind is the same.<br/>
+ *
+ * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
+ * @author GraviteeSource Team
+ */
+public enum FieldKind {
+    GENERIC,
+    PASSWORD,
+    HEADER,
+    PRIVATE_KEY,
+    PUBLIC_KEY,
+    KEYSTORE,
+}
