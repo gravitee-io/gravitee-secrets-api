@@ -27,16 +27,17 @@
         <version>22.1.14</version>
     </parent>
 
-    <groupId>io.gravitee</groupId>
+    <groupId>io.gravitee.secret</groupId>
     <artifactId>gravitee-secret-api</artifactId>
     <version>0.0.0</version>
-     <name>Gravitee.io APIM - Secret API</name>
+    <name>Gravitee.io - Secret API</name>
 
     <properties>
         <!-- Gravitee -->
         <gravitee-bom.version>8.1.0</gravitee-bom.version>
+        <gravitee-common.version>4.5.1</gravitee-common.version>
         <!-- Third party -->
-         <awaitability.version>4.2.2</awaitability.version>
+        <awaitability.version>4.2.2</awaitability.version>
         <!-- Plugin -->
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <maven-plugin-gpg.version>3.2.6</maven-plugin-gpg.version>
@@ -58,6 +59,19 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- temporary -->
+        <dependency>
+            <groupId>io.gravitee.node</groupId>
+            <artifactId>gravitee-node-api</artifactId>
+            <version>7.0.0-alpha.4</version>
+        </dependency>
+        <!-- gravitee -->
+        <dependency>
+            <groupId>io.gravitee.common</groupId>
+            <artifactId>gravitee-common</artifactId>
+            <version>${gravitee-common.version}</version>
+        </dependency>
+        <!-- third party -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -67,6 +81,10 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
         </dependency>
 
         <!-- Unit Tests -->
@@ -96,6 +114,7 @@
             <version>${awaitability.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
