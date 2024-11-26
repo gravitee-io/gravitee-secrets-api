@@ -1,3 +1,10 @@
+# 1.0.0-alpha.1 (2024-11-26)
+
+
+### Features
+
+* add common objects for secrets ([eff452f](https://github.com/gravitee-io/gravitee-secret-api/commit/eff452fdb5d3dc505b08f5a19696a4b547968ee6))
+
 ## [4.5.1](https://github.com/gravitee-io/gravitee-common/compare/4.5.0...4.5.1) (2024-07-03)
 
 ### Bug Fixes
