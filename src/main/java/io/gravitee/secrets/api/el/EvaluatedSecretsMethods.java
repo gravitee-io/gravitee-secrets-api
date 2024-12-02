@@ -7,9 +7,9 @@ import java.util.List;
  * @author GraviteeSource Team
  */
 public interface EvaluatedSecretsMethods {
-    String fromGrant(String contextId, RuntimeContext runtimeContext);
+    String fromGrant(String contextId, SecretFieldAccessControl runtimeContext);
 
-    String fromGrant(String contextId, String secretKey, RuntimeContext runtimeContext);
+    String fromGrant(String contextId, String secretKey, SecretFieldAccessControl runtimeContext);
 
     String fromEL(
         String envId,
@@ -17,6 +17,6 @@ public interface EvaluatedSecretsMethods {
         String definitionKind,
         String definitionId,
         List<String> locations,
-        RuntimeContext runtimeContext
+        SecretFieldAccessControl runtimeContext
     );
 }

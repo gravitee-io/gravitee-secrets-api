@@ -97,13 +97,13 @@ public record SecretSpec(
 
     /**
      * Shortcut to {@link ACLs#fieldKind()}
-     * fieldKind or null
+     * @return fieldKind or null
      */
     public FieldKind allowedFieldKind() {
         return acls != null ? acls.fieldKind() : null;
     }
     /**
-     * Shortcut to extract all allowed fields from all {@link ACLs#plugins()} }
+     * Shortcut to extract all allowed fields from all {@link ACLs#plugins()}
      * @return a non-null set of allowed fields from ACLs object.
      */
     public Set<String> allowedFields() {
