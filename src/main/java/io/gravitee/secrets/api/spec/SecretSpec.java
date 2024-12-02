@@ -1,7 +1,7 @@
 package io.gravitee.secrets.api.spec;
 
 import io.gravitee.common.utils.IdGenerator;
-import io.gravitee.node.api.secrets.model.SecretURL;
+import io.gravitee.secrets.api.core.SecretURL;
 import io.gravitee.secrets.api.el.FieldKind;
 import java.util.Objects;
 import java.util.Set;
