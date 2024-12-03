@@ -34,8 +34,7 @@ public interface SecretProvider {
     String PLUGIN_TYPE = "secret-provider";
 
     /**
-     * Resolve a secret into and wrap it into a {@link Maybe}.
-     * An error will be signaled if the secret is not found.
+     * Resolve a secret into and wrap it into a {@link Maybe}, it must be empty if thr secret is not found.
      *
      * @param secretMount where the secret is mounted.
      * @return a secret map (all keys of a secret)
@@ -43,7 +42,7 @@ public interface SecretProvider {
     Maybe<SecretMap> resolve(SecretMount secretMount);
 
     /**
-     * Watches a secret. Will perform a {@link #resolve(SecretMount)} first before watching changes.
+     * Watches a secret, no event is emitted if not secret can be found
      *
      * @param secretMount where the secret is mounted.
      * @return a {@link Flowable} of event that contains the secret map of an empty secret map in case of deletion.
