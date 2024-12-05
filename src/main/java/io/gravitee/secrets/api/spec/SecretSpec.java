@@ -84,7 +84,7 @@ public record SecretSpec(
      * @return the spec as a SecretURL
      */
     public SecretURL toSecretURL() {
-        return SecretURL.from(uriAndKey(), false);
+        return SecretURL.from(uriAndKey(), true);
     }
 
     /**
