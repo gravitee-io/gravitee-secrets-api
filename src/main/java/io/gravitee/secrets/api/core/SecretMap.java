@@ -105,13 +105,13 @@ public final class SecretMap implements WithExpiration {
     }
 
     /**
-     * Get a secret from the map using the {@link SecretMount#key()}
+     * Get a secret from the map using the {@link SecretURL#key()}
      *
-     * @param secretMount the mount to use
+     * @param secretURL the url to use
      * @return optional of a required secret
      */
-    public Optional<Secret> getSecret(SecretMount secretMount) {
-        return Optional.ofNullable(map.get(secretMount.key()));
+    public Optional<Secret> getSecret(SecretURL secretURL) {
+        return Optional.ofNullable(map.get(secretURL.key()));
     }
 
     /**
@@ -151,22 +151,22 @@ public final class SecretMap implements WithExpiration {
     }
 
     /**
-     * Compute a new secret map with expiration. If the <code>secretMount</code> has a key,
+     * Compute a new secret map with expiration. If the <code>secretURL</code> has a key,
      * then only the secret matching that key will be set to expire. If not the whole map is set to expire.
-     * @param secretMount the secret mount used to fetch that secret
+     * @param secretURL the secret URL to fetch that secret
      * @param expireAt the expiration instant
      * @return a new {@link SecretMap} containing expiring secrets
      */
-    public SecretMap withExpiresAt(SecretMount secretMount, Instant expireAt) {
-        if (secretMount.isKeyEmpty()) {
+    public SecretMap withExpiresAt(SecretURL secretURL, Instant expireAt) {
+        if (secretURL.key() == null || secretURL.key().isBlank()) {
             // the whole map can expire
             return new SecretMap(this.asMap(), expireAt);
         } else {
-            Optional<Secret> expiring = this.getSecret(secretMount).map(secret -> secret.withExpiresAt(expireAt));
+            Optional<Secret> expiring = this.getSecret(secretURL).map(secret -> secret.withExpiresAt(expireAt));
             // set the secret to expire
             if (expiring.isPresent()) {
                 Map<String, Secret> secrets = new HashMap<>(this.asMap());
-                secrets.put(secretMount.key(), expiring.get());
+                secrets.put(secretURL.key(), expiring.get());
                 return new SecretMap(secrets);
             }
             return this;

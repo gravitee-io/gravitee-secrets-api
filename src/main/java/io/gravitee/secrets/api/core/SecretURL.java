@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * A URL-like representation of a {@link SecretMount}
+ * A URL-like representation of a secret location
  *
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
@@ -27,7 +28,7 @@ public record SecretURL(String provider, String path, String key, Multimap<Strin
     public static final String SCHEME = "secret://";
 
     public static SecretURL from(String url) {
-        return from(url, true);
+        return from(url, false);
     }
 
     /**
@@ -44,16 +45,16 @@ public record SecretURL(String provider, String path, String key, Multimap<Strin
      * Pair are always list as can be specified more than once. If no value is parsed, then <code>true</code> is set</li>
      *
      * @param url the string to parse
-     * @param includesScheme to indicate if URL should contain secret://
+     * @param isURI to indicate if it is a URI (does not start with 'secret://')
      * @return SecretURL object
      * @throws IllegalArgumentException when failing to parse
      */
-    public static SecretURL from(String url, boolean includesScheme) {
+    public static SecretURL from(String url, boolean isURI) {
         url = Objects.requireNonNull(url).trim();
-        if (includesScheme && !url.startsWith(SCHEME)) {
+        if (!isURI && !url.startsWith(SCHEME)) {
             throwFormatError(url);
         }
-        String schemeLess = includesScheme ? url.substring(SCHEME.length()) : url.substring(1);
+        String schemeLess = isURI ? url.substring(1) : url.substring(SCHEME.length());
         int firstSlash = schemeLess.indexOf('/');
         if (firstSlash < 0 || firstSlash == schemeLess.length() - 1) {
             throwFormatError(url);
@@ -101,6 +102,10 @@ public record SecretURL(String provider, String path, String key, Multimap<Strin
         return new SecretURL(provider, path, key, query);
     }
 
+    public boolean isKeyEmpty() {
+        return key == null || key.isBlank();
+    }
+
     private static void throwFormatError(String url) {
         throw new IllegalArgumentException(
             "Secret URL '%s' should have the following format %s<provider>/<path or name>[:<key>][?option=value1&option=value2]".formatted(
@@ -130,15 +135,31 @@ public record SecretURL(String provider, String path, String key, Multimap<Strin
     }
 
     /**
-     * Browser query string to find 'watch' with value 'true'
+     * Search query string for 'watch' with value 'true'
      *
      * @return true if <code>watch=true</code> was found.
      */
     public boolean isWatchable() {
-        return query()
-            .entries()
-            .stream()
-            .anyMatch(e -> Objects.equals(e.getKey(), WellKnownQueryParam.WATCH) && Boolean.parseBoolean(e.getValue()));
+        return queryParamEqualsIgnoreCase(WellKnownQueryParam.WATCH, "true");
+    }
+
+    /**
+     * Test existence of a query param
+     * @param name query param name
+     * @return true if it exists
+     */
+    public boolean queryParamExists(String name) {
+        return query.containsKey(name);
+    }
+
+    /**
+     * Search query string param of given <code>name</code>  with case-insensitive <code>value</code>
+     * @param name query param name
+     * @param value case-insensitive value to find
+     * @return true if name and value is found
+     */
+    public boolean queryParamEqualsIgnoreCase(@Nonnull String name, String value) {
+        return query().entries().stream().anyMatch(e -> Objects.equals(e.getKey(), name) && e.getValue().equalsIgnoreCase(value));
     }
 
     /**
@@ -182,5 +203,6 @@ public record SecretURL(String provider, String path, String key, Multimap<Strin
         public static final String WATCH = "watch";
         public static final String KEYMAP = "keymap";
         public static final String NAMESPACE = "namespace";
+        public static final String RESOLVE_BEFORE_WATCH = "resolveBeforeWatch";
     }
 }

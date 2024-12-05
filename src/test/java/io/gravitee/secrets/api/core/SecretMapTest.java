@@ -39,9 +39,9 @@ class SecretMapTest {
     @ParameterizedTest(name = "{0}")
     @MethodSource("secretMaps")
     void should_get_secret_from_map(String name, SecretMap secretMap) {
-        SecretMount pass = new SecretMount(null, null, KEY, null);
-        assertThat(secretMap.getSecret(pass)).isPresent().get().extracting(Secret::asString).isEqualTo(SECRET);
-        assertThat(secretMap.getSecret(new SecretMount(null, null, "bar", null))).isNotPresent();
+        SecretURL url = SecretURL.from("secret://foo/bar:".concat(KEY));
+        assertThat(secretMap.getSecret(url)).isPresent().get().extracting(Secret::asString).isEqualTo(SECRET);
+        assertThat(secretMap.getSecret(SecretURL.from("secret://foo/bar:__unknown__"))).isNotPresent();
     }
 
     @Test
@@ -60,7 +60,7 @@ class SecretMapTest {
     void should_have_well_know_data() {
         SecretMap secretMap = SecretMap.of(Map.of(KEY, SECRET));
         secretMap.handleWellKnownSecretKeys(Map.of(KEY, SecretMap.WellKnownSecretKey.PASSWORD));
-        assertThat(secretMap.getSecret(new SecretMount(null, null, KEY, null)))
+        assertThat(secretMap.getSecret(SecretURL.from("secret://foo/bar:".concat(KEY))))
             .isPresent()
             .get()
             .extracting(Secret::asString)
@@ -91,45 +91,35 @@ class SecretMapTest {
     @Test
     void should_set_expiration() {
         SecretMap underTest = SecretMap.of(Map.of(KEY, SECRET, "second", "two"));
-        SecretMount mountWithKEYKey = new SecretMount(null, new SecretLocation(Map.of()), KEY, null);
-        SecretMount mountWithSecondKey = new SecretMount(null, new SecretLocation(Map.of()), "second", null);
+        SecretURL urlWithKey = SecretURL.from("secret://foo/bar:".concat(KEY));
+        SecretURL urlWithSecondKey = SecretURL.from("secret://foo/bar:".concat("second"));
 
-        SecretMap containsOneExpiringSecret = underTest.withExpiresAt(mountWithKEYKey, Instant.now().plusNanos(1));
+        SecretMap containsOneExpiringSecret = underTest.withExpiresAt(urlWithKey, Instant.now().plusNanos(1));
 
         assertThat(containsOneExpiringSecret.expiresAt()).isEmpty();
-        assertThat(containsOneExpiringSecret.getSecret(mountWithKEYKey))
+        assertThat(containsOneExpiringSecret.getSecret(urlWithKey))
             .isPresent()
             .get()
             .extracting(Secret::expiresAt)
             .asInstanceOf(InstanceOfAssertFactories.optional(Instant.class))
             .isPresent();
-        assertThat(containsOneExpiringSecret.getSecret(mountWithKEYKey)).isPresent().get().extracting(Secret::isExpired).isEqualTo(true);
+        assertThat(containsOneExpiringSecret.getSecret(urlWithKey)).isPresent().get().extracting(Secret::isExpired).isEqualTo(true);
 
-        assertThat(containsOneExpiringSecret.getSecret(mountWithSecondKey))
+        assertThat(containsOneExpiringSecret.getSecret(urlWithSecondKey))
             .isPresent()
             .get()
             .extracting(Secret::expiresAt)
             .asInstanceOf(InstanceOfAssertFactories.optional(Instant.class))
             .isEmpty();
-        assertThat(containsOneExpiringSecret.getSecret(mountWithSecondKey))
-            .isPresent()
-            .get()
-            .extracting(Secret::isExpired)
-            .isEqualTo(false);
+        assertThat(containsOneExpiringSecret.getSecret(urlWithSecondKey)).isPresent().get().extracting(Secret::isExpired).isEqualTo(false);
 
-        // when the mount does not specify a key
-        SecretMap expires = underTest.withExpiresAt(
-            new SecretMount("foo", new SecretLocation(Map.of()), null, null),
-            Instant.now().plusNanos(1)
-        );
+        // when the url does not specify a key
+        SecretMap expires = underTest.withExpiresAt(SecretURL.from("secret://foo/bar"), Instant.now().plusNanos(1));
         assertThat(expires.expiresAt()).isPresent();
         assertThat(expires.isExpired()).isTrue();
 
         // key is not part of the map => map stays untouched
-        SecretMap untouched = underTest.withExpiresAt(
-            new SecretMount(null, new SecretLocation(Map.of()), "__unknown__", null),
-            Instant.now().plusNanos(1)
-        );
+        SecretMap untouched = underTest.withExpiresAt(SecretURL.from("secret://foo/bar:__unknown__"), Instant.now().plusNanos(1));
         assertThat(underTest).isSameAs(untouched);
     }
 }

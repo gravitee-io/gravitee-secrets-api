@@ -17,7 +17,6 @@ package io.gravitee.secrets.api.plugin;
 
 import io.gravitee.secrets.api.core.SecretEvent;
 import io.gravitee.secrets.api.core.SecretMap;
-import io.gravitee.secrets.api.core.SecretMount;
 import io.gravitee.secrets.api.core.SecretURL;
 import io.gravitee.secrets.api.errors.SecretManagerException;
 import io.reactivex.rxjava3.core.Flowable;
@@ -36,27 +35,18 @@ public interface SecretProvider {
     /**
      * Resolve a secret into and wrap it into a {@link Maybe}, it must be empty if thr secret is not found.
      *
-     * @param secretMount where the secret is mounted.
+     * @param secretURL where the secret is located
      * @return a secret map (all keys of a secret)
      */
-    Maybe<SecretMap> resolve(SecretMount secretMount);
+    Maybe<SecretMap> resolve(SecretURL secretURL);
 
     /**
      * Watches a secret, no event is emitted if not secret can be found
      *
-     * @param secretMount where the secret is mounted.
+     * @param secretURL where the secret is located
      * @return a {@link Flowable} of event that contains the secret map of an empty secret map in case of deletion.
      */
-    Flowable<SecretEvent> watch(SecretMount secretMount);
-
-    /**
-     * Turns a parsed URL into a {@link SecretMount}
-     *
-     * @param url the pasrsed url
-     * @return a mount or raised an error
-     * @throws IllegalArgumentException if the parsed url does not contain proper data to return a {@link SecretMount}
-     */
-    SecretMount fromURL(SecretURL url);
+    Flowable<SecretEvent> watch(SecretURL secretURL);
 
     /**
      * Performs startup logic if need be (is called once after a new instance is created)

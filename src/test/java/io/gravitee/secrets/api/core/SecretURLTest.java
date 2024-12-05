@@ -62,6 +62,7 @@ class SecretURLTest {
         assertThat(cut.path()).isEqualTo(path);
         assertThat(cut.key()).isEqualTo(key);
         assertThat(cut.query().asMap()).containsAllEntriesOf(query);
+        assertThat(cut.query().asMap().keySet()).allMatch(cut::queryParamExists);
         assertThat(cut.isWatchable()).isEqualTo(watch);
     }
 
@@ -148,10 +149,11 @@ class SecretURLTest {
 
     @Test
     void should_parse_uri() {
-        SecretURL cut = SecretURL.from("/foo/bar:baz", false);
+        SecretURL cut = SecretURL.from("/foo/bar:baz?buz=pUUUk", true);
         assertThat(cut.provider()).isEqualTo("foo");
         assertThat(cut.path()).isEqualTo("bar");
         assertThat(cut.key()).isEqualTo("baz");
+        assertThat(cut.queryParamEqualsIgnoreCase("buz", "puuuk")).isTrue();
     }
 
     @Test
