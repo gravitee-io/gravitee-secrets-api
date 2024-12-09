@@ -1,6 +1,7 @@
 package io.gravitee.secrets.api.errors;
 
 /**
+ * Occurs when the configuration of a secret manager is badly formed
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */

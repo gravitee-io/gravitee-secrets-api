@@ -1,6 +1,7 @@
 package io.gravitee.secrets.api.errors;
 
 /**
+ * Base exception for all secret errors in the secret service plugin
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */

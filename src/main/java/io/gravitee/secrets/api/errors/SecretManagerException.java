@@ -1,6 +1,7 @@
 package io.gravitee.secrets.api.errors;
 
 /**
+ * Anything that goes wrong querying a secret manager
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */

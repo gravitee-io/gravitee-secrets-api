@@ -33,17 +33,22 @@ public interface SecretProvider {
     String PLUGIN_TYPE = "secret-provider";
 
     /**
-     * Resolve a secret into and wrap it into a {@link Maybe}, it must be empty if thr secret is not found.
+     * Resolve a secret (as a key/value pair) as a {@link Maybe}.
+     * If the secret does not exist then {@link Maybe#empty()} is returned.
+     * Any errors are inheritors of {@link SecretManagerException} and signaled in the Maybe.
      *
-     * @param secretURL where the secret is located
-     * @return a secret map (all keys of a secret)
+     * @param secretURL where the secret is located. It is implementation responsibility to interpret or parse the value or {@link SecretURL#path()}
+     * @return a secret map (all keys of a secret) it may contain expiration information
      */
     Maybe<SecretMap> resolve(SecretURL secretURL);
 
     /**
-     * Watches a secret, no event is emitted if not secret can be found
+     * Watches a secret, no event is published if the secret cannot be found.
+     * Although, it may start to emit events afterward if the secret is created in the secret provider.
+     * If this secret provider does not support watching secrets.
+     * It should not return signal an error, it should rather log it.
      *
-     * @param secretURL where the secret is located
+     * @param secretURL where the secret is located. It is implementation responsibility to interpret or parse the value or {@link SecretURL#path()}
      * @return a {@link Flowable} of event that contains the secret map of an empty secret map in case of deletion.
      */
     Flowable<SecretEvent> watch(SecretURL secretURL);

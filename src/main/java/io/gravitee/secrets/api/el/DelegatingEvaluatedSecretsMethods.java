@@ -4,6 +4,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Class that delegate to the actual implementation in a plugin.
+ * This exists to be white-listed in expression-language dependency
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */
@@ -13,13 +15,13 @@ public class DelegatingEvaluatedSecretsMethods implements EvaluatedSecretsMethod
     private final EvaluatedSecretsMethods delegate;
 
     @Override
-    public String fromGrant(String contextId, SecretFieldAccessControl runtimeContext) {
-        return delegate.fromGrant(contextId, runtimeContext);
+    public String fromGrant(String contextId, SecretFieldAccessControl secretFieldAccessControl) {
+        return delegate.fromGrant(contextId, secretFieldAccessControl);
     }
 
     @Override
-    public String fromGrant(String contextId, String secretKey, SecretFieldAccessControl runtimeContext) {
-        return delegate.fromGrant(contextId, secretKey, runtimeContext);
+    public String fromGrant(String contextId, String secretKey, SecretFieldAccessControl secretFieldAccessControl) {
+        return delegate.fromGrant(contextId, secretKey, secretFieldAccessControl);
     }
 
     @Override
@@ -29,8 +31,8 @@ public class DelegatingEvaluatedSecretsMethods implements EvaluatedSecretsMethod
         String definitionKind,
         String definitionId,
         List<String> locations,
-        SecretFieldAccessControl runtimeContext
+        SecretFieldAccessControl secretFieldAccessControl
     ) {
-        return delegate.fromEL(envId, uriOrName, definitionKind, definitionId, locations, runtimeContext);
+        return delegate.fromEL(envId, uriOrName, definitionKind, definitionId, locations, secretFieldAccessControl);
     }
 }

@@ -16,6 +16,7 @@
 package io.gravitee.secrets.api.errors;
 
 /**
+ * When a secret provider plugin is not found
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */

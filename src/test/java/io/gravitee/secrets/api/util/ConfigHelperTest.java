@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import io.gravitee.secrets.api.core.Secret;
-import io.gravitee.secrets.api.core.SecretLocation;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -99,9 +98,9 @@ class ConfigHelperTest {
             .isInstanceOf(NullPointerException.class)
             .hasMessageContaining("'test'");
         assertThatCode(() -> ConfigHelper.getProperty(null, "test", String.class)).isInstanceOf(NullPointerException.class);
-        assertThatCode(() -> ConfigHelper.getProperty(withUnsupported, "test", SecretLocation.class))
+        assertThatCode(() -> ConfigHelper.getProperty(withUnsupported, "test", List.class))
             .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining(SecretLocation.class.getName());
+            .hasMessageContaining(List.class.getName());
     }
 
     public enum TestEnum {
