@@ -1,6 +1,5 @@
 package io.gravitee.secrets.api.el;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -25,14 +24,7 @@ public class DelegatingEvaluatedSecretsMethods implements EvaluatedSecretsMethod
     }
 
     @Override
-    public String fromEL(
-        String envId,
-        String uriOrName,
-        String definitionKind,
-        String definitionId,
-        List<String> locations,
-        SecretFieldAccessControl secretFieldAccessControl
-    ) {
-        return delegate.fromEL(envId, uriOrName, definitionKind, definitionId, locations, secretFieldAccessControl);
+    public String fromEL(String contextId, String uriOrName, SecretFieldAccessControl secretFieldAccessControl) {
+        return delegate.fromEL(contextId, uriOrName, secretFieldAccessControl);
     }
 }

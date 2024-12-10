@@ -15,18 +15,22 @@
  */
 package io.gravitee.secrets.api.el;
 
+import javax.annotation.Nullable;
+
 /**
  * Object representing the ability for a secret to be used on a given field.
  * This object is added in the EL context then removed after evaluation.
  * EL expression may use this context to allow or deny access to a secret.
  *
  * @param allowed If a secret can be resolved (true = the plugin/entity field supports secrets)
- * @param kind the secret value kind admitted for this field
+ * @param kind the secret value kind admitted for this field.
+ *             Is <code>null</code> when <code>allowed</code> is <code>false</code>
  * @param name the field name where the secret is used
+ *             Can be <code>null</code> when <code>allowed</code> is <code>false</code>
  *
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */
-public record SecretFieldAccessControl(boolean allowed, FieldKind kind, String name) {
+public record SecretFieldAccessControl(boolean allowed, @Nullable FieldKind kind, @Nullable String name) {
     public static final String EL_VARIABLE = "secret_field_access_control_var";
 }
