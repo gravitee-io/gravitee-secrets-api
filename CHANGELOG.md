@@ -1,3 +1,10 @@
+# [1.0.0-alpha.2](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.1...1.0.0-alpha.2) (2024-12-12)
+
+
+### Features
+
+* add support for APIM integration  ([#4](https://github.com/gravitee-io/gravitee-secret-api/issues/4)) ([90d1be3](https://github.com/gravitee-io/gravitee-secret-api/commit/90d1be3131acab6ee07c63e03598e022f9586155))
+
 # 1.0.0-alpha.1 (2024-11-26)
 
 
