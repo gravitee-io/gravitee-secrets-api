@@ -33,7 +33,7 @@ import lombok.NoArgsConstructor;
  * @author Benoit BORDIGONI (benoit.bordigoni at graviteesource.com)
  * @author GraviteeSource Team
  */
-public record SecretURL(String provider, String path, String key, Multimap<String, String> query) {
+public record SecretURL(String provider, String path, String key, Multimap<String, String> query, boolean isURI) {
     public static final char URL_SEPARATOR = '/';
     public static final String URI_KEY_SEPARATOR = ":";
     private static final Splitter urlPathSplitter = Splitter.on(URL_SEPARATOR);
@@ -114,7 +114,7 @@ public record SecretURL(String provider, String path, String key, Multimap<Strin
             throwFormatError(url);
         }
 
-        return new SecretURL(provider, path, key, query);
+        return new SecretURL(provider, path, key, query, isURI);
     }
 
     public boolean isKeyEmpty() {
