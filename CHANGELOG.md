@@ -1,3 +1,10 @@
+# [1.0.0-alpha.3](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.2...1.0.0-alpha.3) (2024-12-14)
+
+
+### Bug Fixes
+
+* add isURI in secret URL ([6e4b1c2](https://github.com/gravitee-io/gravitee-secret-api/commit/6e4b1c226fd0e8c3c943680a617b76992df9603a))
+
 # [1.0.0-alpha.2](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.1...1.0.0-alpha.2) (2024-12-12)
 
 
