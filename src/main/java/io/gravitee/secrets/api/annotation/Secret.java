@@ -16,6 +16,7 @@
 package io.gravitee.secrets.api.annotation;
 
 import io.gravitee.secrets.api.el.FieldKind;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -31,5 +32,5 @@ public @interface Secret {
     /**
      * The secret FieldKind of the field annotated
      */
-    FieldKind value();
+    FieldKind value() default FieldKind.GENERIC;
 }
