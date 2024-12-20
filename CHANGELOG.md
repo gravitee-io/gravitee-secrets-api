@@ -1,3 +1,17 @@
+# [1.0.0-alpha.4](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.3...1.0.0-alpha.4) (2024-12-20)
+
+
+### Bug Fixes
+
+* add default secret kind ([733f37f](https://github.com/gravitee-io/gravitee-secret-api/commit/733f37f899d0f0a794c9839b4c874ba9fcf48ec9))
+* field naming in FieldAccessControl and null value ([608e564](https://github.com/gravitee-io/gravitee-secret-api/commit/608e564050587775c2d75e2182c9542b751932cb))
+* rename annotation and implements default EL methods for better UX when no license ([ed3418e](https://github.com/gravitee-io/gravitee-secret-api/commit/ed3418e0c775aec448cee8ea24bd133843397ccc))
+
+
+### Features
+
+* add SecretKind annotation used by ConfigurationEvaluatorProcessor ([663cc43](https://github.com/gravitee-io/gravitee-secret-api/commit/663cc43919cd867ac02a6665ad639d866164a2e0))
+
 # [1.0.0-alpha.3](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.2...1.0.0-alpha.3) (2024-12-14)
 
 
