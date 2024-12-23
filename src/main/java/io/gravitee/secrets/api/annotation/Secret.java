@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * @author GraviteeSource Team
  */
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Secret {
     /**
      * The secret FieldKind of the field annotated
