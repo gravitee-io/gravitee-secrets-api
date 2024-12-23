@@ -1,3 +1,10 @@
+# [1.0.0-alpha.5](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.4...1.0.0-alpha.5) (2024-12-23)
+
+
+### Bug Fixes
+
+* change Secret annotation retention to RUNTIME ([6764c61](https://github.com/gravitee-io/gravitee-secret-api/commit/6764c61ac6d170f1f9c7eec752b56eba237d5e6b))
+
 # [1.0.0-alpha.4](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.3...1.0.0-alpha.4) (2024-12-20)
 
 
