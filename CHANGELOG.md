@@ -1,3 +1,10 @@
+# [1.0.0-alpha.6](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.5...1.0.0-alpha.6) (2024-12-30)
+
+
+### Bug Fixes
+
+* remove unused gravitee-node dependency ([270b436](https://github.com/gravitee-io/gravitee-secret-api/commit/270b4360edad15388a1154697710e4cbba40efc2))
+
 # [1.0.0-alpha.5](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.4...1.0.0-alpha.5) (2024-12-23)
 
 
