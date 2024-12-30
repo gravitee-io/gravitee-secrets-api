@@ -1,3 +1,23 @@
+# 1.0.0 (2024-12-30)
+
+
+### Bug Fixes
+
+* add default secret kind ([a9f777e](https://github.com/gravitee-io/gravitee-secret-api/commit/a9f777e6966a9df952fe0f0a851488531c5cca72))
+* add isURI in secret URL ([26798bd](https://github.com/gravitee-io/gravitee-secret-api/commit/26798bd13fb1247df26b1426fc5334dc098f5c16))
+* change Secret annotation retention to RUNTIME ([e66d8cf](https://github.com/gravitee-io/gravitee-secret-api/commit/e66d8cf9189ccba3abcc48ec2ed6e99a9baa4dfa))
+* field naming in FieldAccessControl and null value ([a6212fd](https://github.com/gravitee-io/gravitee-secret-api/commit/a6212fde0e6d49e4b173f879439ae0f7024a66c5))
+* fix CI pipeline ([56634c4](https://github.com/gravitee-io/gravitee-secret-api/commit/56634c473358415ff7b9e5ae069a920407791b09))
+* remove unused gravitee-node dependency ([8267aa5](https://github.com/gravitee-io/gravitee-secret-api/commit/8267aa5395bdd9dc8debddcdf46d9af3b9b8b0de))
+* rename annotation and implements default EL methods for better UX when no license ([62d46ae](https://github.com/gravitee-io/gravitee-secret-api/commit/62d46aed1f094b6a02ac02e9373c730d0da9d362))
+
+
+### Features
+
+* add common objects for secrets ([e0975ec](https://github.com/gravitee-io/gravitee-secret-api/commit/e0975ec57a635b4351b831b40bbfe5fd881794fd))
+* add SecretKind annotation used by ConfigurationEvaluatorProcessor ([5c67996](https://github.com/gravitee-io/gravitee-secret-api/commit/5c6799685054b0db4f1e347c58dfa610553c375f))
+* add support for APIM integration  ([#4](https://github.com/gravitee-io/gravitee-secret-api/issues/4)) ([8c370c2](https://github.com/gravitee-io/gravitee-secret-api/commit/8c370c267720580acf98ee0d7f4e2f348e699e47))
+
 # [1.0.0-alpha.6](https://github.com/gravitee-io/gravitee-secret-api/compare/1.0.0-alpha.5...1.0.0-alpha.6) (2024-12-30)
 
 
